@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>chapter2-1</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.12.0/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		d3.csv("./csv/cities.csv", function(error, data){
+			console.log(error)
+			console.log(data)
+		})
+		d3.csv("./csv/tweetdata.csv", function(error, data){
+			console.log(error)
+			console.log(data)
+		})
+
+		d3.select("body")
+		  .append("svg")
+		  .style("width", "500px")
+		  .style("height", "500px")
+		  .style("border", "1px lightgray solid")
+
+		var yScale = d3.scaleLinear().domain([0,100,500]).range([0,50,100]).clamp(true)
+
+		d3.select("svg")
+		  .selectAll("rect")
+		  .data([14, 68, 24500, 430, 19, 1000, 5555])
+		  .enter()
+		  .append("rect")
+		  .attr("width", 50)
+		  .attr("height", function(d){return yScale(d)})
+		  .style("fill", "blue")
+		  .style("stroke", "red")
+		  .style("stroke-width", "1px")
+		  .style("opacity", .25)
+		  .attr("x", function(d,i){return i*50})
+		  .attr("y", function(d,i){return 100-yScale(d)})
+
+	</script>
+</body>
+</html>
